@@ -6,17 +6,17 @@ pipeline {
         }
     }    
     stages {
-        stage('Build') {
+        stage('Build local') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Test local') {
             steps {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Deliver') {
+        stage('Deliver local') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the website? (Click "Proceed" to continue)'
