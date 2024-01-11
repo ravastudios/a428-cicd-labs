@@ -6,26 +6,21 @@ pipeline {
         }
     }    
     stages {
-        stage('Build') {
+        stage('Build local') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Test local') {
             steps {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Manual Approve'){
-            steps {                
-                input message: 'Lanjut Ke tahap Deploy? (Click "Proceed" to continue)'                            
-            }
-        }
-        stage('Deploy') {
+        stage('Deliver local') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sleep(60)    
-                sh './jenkins/scripts/kill.sh'   
+                input message: 'Finished using the website? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
